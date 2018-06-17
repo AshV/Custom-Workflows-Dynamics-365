@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xrm.Sdk.Workflow;
+using System;
 using System.Activities;
 
 namespace WordCountWorkflow
@@ -16,7 +17,9 @@ namespace WordCountWorkflow
         {
             this.CountOfWords.Set(
                 context,
-                this.InputText.Get<string>(context).Split(' ').Length);
+                this.InputText.Get<string>(context).Split(
+                    new char[] { ' ', '\r', '\n' },
+                    StringSplitOptions.RemoveEmptyEntries).Length);
         }
     }
 }
